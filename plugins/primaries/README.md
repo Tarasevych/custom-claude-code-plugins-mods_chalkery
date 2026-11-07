@@ -1,13 +1,21 @@
 # primaries
 
-English | [Українська](README.uk.md)
+**Двомовний огляд / Tweetalig overzicht** | [Українська (`README.uk.md`)](README.uk.md) | [Nederlands (`LEESMIJ.nl.md`)](LEESMIJ.nl.md)
 
-The pack: all three chalkery mods in one install, like three primary colours. It has no code of its own, only dependencies on [handoff-relay](../handoff-relay), [cache-meter](../cache-meter) and [next-steps](../next-steps).
+---
 
-```bash
-claude plugin install primaries@chalkery
-```
+## 🇺🇦 Українська
 
-To remove the pack: `claude plugin uninstall primaries@chalkery`. The three mods it installed stay; `claude plugin prune` removes them too.
+Зведений набір `primaries` встановлює всі три модифікації `chalkery` однією командою ([`handoff-relay`](../handoff-relay/README.uk.md), [`cache-meter`](../cache-meter/README.uk.md) та [`next-steps`](../next-steps/README.uk.md)).
 
-If the install reports `Dependency "..." is not found in any configured marketplace`, see Troubleshooting in the [main README](../../README.md#troubleshooting).
+- Повний опис українською мовою: [`README.uk.md`](README.uk.md)
+- Загальний опис сховища: [головний `README.uk.md`](../../README.uk.md)
+
+---
+
+## 🇳🇱 Nederlands
+
+Het verzamelpakket `primaries` plaatst alle drie de uitbreidingsmodules van `chalkery` met één opdracht ([`handoff-relay`](../handoff-relay/LEESMIJ.nl.md), [`cache-meter`](../cache-meter/LEESMIJ.nl.md) en [`next-steps`](../next-steps/LEESMIJ.nl.md)).
+
+- Volledige beschrijving in het Nederlands: [`LEESMIJ.nl.md`](LEESMIJ.nl.md)
+- Algemeen overzicht van de opslagplaats: [hoofdbestand `LEESMIJ.nl.md`](../../LEESMIJ.nl.md)

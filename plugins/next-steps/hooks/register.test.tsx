@@ -102,8 +102,8 @@ const turnEnd = { answer: LONG, durationMs: 1, isAborted: false, turnId: 't1', r
 
 const REPLY = JSON.stringify([
   { label: 'Опублікуй сторінку', prompt: 'Опублікуй сторінку зараз' },
-  { label: 'хендоф', prompt: '/handoff' },
-  { label: 'Вигаданий скіл', prompt: '/nope зроби щось' },
+  { label: 'передача контексту', prompt: '/handoff' },
+  { label: 'Вигадана навичка', prompt: '/nope зроби щось' },
 ])
 
 // The engine under the mod: count forks and answer with the given text; record the prompt box.
@@ -117,7 +117,7 @@ const engine = (on: On, reply: string | null = REPLY) => {
   on('clock.now', () => ({ value: (clock += 1000) }) as never)
   on('turn.complete', () => ({ text: '' }))
   on('turn.start', (_$, e) => ({ turnId: e.turnId }))
-  on('command.list', () => ({ value: [{ name: 'handoff', description: 'Хендоф', source: 'user' }] }) as never)
+  on('command.list', () => ({ value: [{ name: 'handoff', description: 'Передача контексту', source: 'user' }] }) as never)
   on('model.fork', (_$, e) => {
     forks.push((e as { prompt: string }).prompt)
     return {
@@ -197,9 +197,9 @@ for (const surface of SURFACES) {
 
       await ui.press({ key: 'ask' })
       expect(w.forks.length).toBe(1)
-      expect(w.forks[0]).toContain('/handoff: Хендоф')
+      expect(w.forks[0]).toContain('/handoff: Передача контексту')
       expect((await ui.find({ key: 's0' }))?.props.label).toBe('Опублікуй сторінку')
-      expect((await ui.find({ key: 's1' }))?.props.label).toBe('Хендоф')
+      expect((await ui.find({ key: 's1' }))?.props.label).toBe('Передача контексту')
       expect(await ui.find({ key: 's2' })).toBeUndefined()
       expect(w.suggested).toEqual(['Опублікуй сторінку зараз'])
     })

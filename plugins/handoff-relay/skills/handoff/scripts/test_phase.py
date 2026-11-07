@@ -15,12 +15,12 @@ class PhaseTable(unittest.TestCase):
                          (base, phase, card, file), title)
 
     def test_no_suffix_is_h1(self):
-        self.check("Естафета хендофів", "Естафета хендофів", 1,
-                   "Естафета хендофів H2", "Естафета хендофів — H2.md")
+        self.check("Естафета передач контексту", "Естафета передач контексту", 1,
+                   "Естафета передач контексту H2", "Естафета передач контексту — H2.md")
 
     def test_h2_goes_to_h3(self):
-        self.check("Естафета хендофів H2", "Естафета хендофів", 2,
-                   "Естафета хендофів H3", "Естафета хендофів — H3.md")
+        self.check("Естафета передач контексту H2", "Естафета передач контексту", 2,
+                   "Естафета передач контексту H3", "Естафета передач контексту — H3.md")
 
     def test_h10_goes_to_h11(self):
         self.check("Назва H10", "Назва", 10, "Назва H11", "Назва — H11.md")
@@ -38,7 +38,7 @@ class PhaseTable(unittest.TestCase):
         self.check("Назва H0", "Назва H0", 1, "Назва H0 H2", "Назва H0 — H2.md")
 
     def test_long_base_truncated_suffix_kept(self):
-        base = "Дуже довга назва сесії, яка точно не влазить у шістдесят символів"
+        base = "Дуже довга назва сеансу, яка точно не влазить у шістдесят символів"
         got = resolve(title=base + " H9")
         self.assertEqual(got["base"], base)
         self.assertLessEqual(len(got["card_title"]), 60)
@@ -56,9 +56,9 @@ class PhaseTable(unittest.TestCase):
         self.assertEqual(got["previous"], "Plan- A-B тест — H3.md")
 
     def test_explicit_chain_wins_over_title(self):
-        got = resolve(title="перейменована сесія", chain="Естафета хендофів", phase=3)
+        got = resolve(title="перейменований сеанс", chain="Естафета передач контексту", phase=3)
         self.assertEqual((got["base"], got["phase"], got["file"]),
-                         ("Естафета хендофів", 3, "Естафета хендофів — H4.md"))
+                         ("Естафета передач контексту", 3, "Естафета передач контексту — H4.md"))
 
     def test_previous_only_from_h2(self):
         self.assertIsNone(resolve(title="Назва")["previous"])

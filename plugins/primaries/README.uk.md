@@ -1,13 +1,13 @@
 # primaries
 
-[English](README.md) | Українська
+[Двомовний огляд / Tweetalig overzicht](README.md) | **Українська** | [Nederlands](LEESMIJ.nl.md)
 
-Набір: усі три модифікації chalkery одним встановленням, як три основні кольори. Власного коду в ньому немає, лише залежності від [handoff-relay](../handoff-relay/README.uk.md), [cache-meter](../cache-meter/README.uk.md) і [next-steps](../next-steps/README.uk.md).
+Зведений набір: усі три модифікації `chalkery` одним встановленням, немов три основні кольори. Власного програмного коду в наборі немає — лише залежності від [handoff-relay](../handoff-relay/README.uk.md), [cache-meter](../cache-meter/README.uk.md) і [next-steps](../next-steps/README.uk.md).
 
 ```bash
 claude plugin install primaries@chalkery
 ```
 
-Видалити набір: `claude plugin uninstall primaries@chalkery`. Три модифікації, які він поставив, після цього лишаються встановленими. Щоб прибрати і їх, виконайте `claude plugin prune`.
+Щоб вилучити набір, виконайте `claude plugin uninstall primaries@chalkery`. Три модифікації, які він встановив, після цього залишаються; щоб прибрати і їх, виконайте `claude plugin prune`.
 
-Якщо встановлення пише `Dependency "..." is not found in any configured marketplace`, дивіться розділ «Якщо не працює» в [головному README](../../README.uk.md#якщо-не-працює).
+Якщо під час встановлення відображається повідомлення про відсутність залежності в налаштованих каталогах, дивіться розділ «Усунення несправностей» у [головному посібнику](../../README.uk.md#усунення-несправностей).

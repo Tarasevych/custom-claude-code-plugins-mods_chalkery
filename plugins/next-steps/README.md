@@ -1,35 +1,24 @@
 <!-- SPDX-License-Identifier: Apache-2.0. Modified by Yehor Hunia, 2026, from anthropics/claude-plugins-community@87c843d (next-steps). -->
-# next-steps (on demand)
+# next-steps
 
-English | [Українська](README.uk.md)
+**Двомовний огляд / Tweetalig overzicht** | [Українська (`README.uk.md`)](README.uk.md) | [Nederlands (`LEESMIJ.nl.md`)](LEESMIJ.nl.md)
 
-A fork of [next-steps](https://github.com/anthropics/claude-plugins-community/tree/main/next-steps) from `anthropics/claude-plugins-community@87c843d` (by Thariq Shihipar). Upstream suggested the next prompts after every turn, and each turn cost one extra model request. Here the band above the prompt shows only a What next? button, and the model is asked when you press it.
+---
 
-Pressing 1, 2 or 3 in an empty input box (or clicking) puts a prompt into the box as a draft: edit it if you like, you press Enter. 0 hides the suggestions and brings the button back. The first suggestion also appears as grey text in the box, and Tab takes it. The mod never sends anything itself, and it takes the digits only while suggestions are on screen.
+## 🇺🇦 Українська
 
-## How it works
+Модифікація `next-steps` показує над полем введення кнопку «Що далі?». На відміну від початкового рішення, вона не витрачає додатковий запит до моделі після кожної відповіді, а запитує до трьох наступних кроків лише за натисканням кнопки. Обрана пропозиція вставляється в поле введення як чернетка.
 
-`hooks/register.tsx`, function hooks:
+- Повний посібник українською мовою: [`README.uk.md`](README.uk.md)
+- Сусідні модифікації: [`handoff-relay`](../handoff-relay/README.uk.md), [`cache-meter`](../cache-meter/README.uk.md), набір [`primaries`](../primaries/README.uk.md)
+- Загальний опис сховища: [головний `README.uk.md`](../../README.uk.md)
 
-- `turn.complete`: after a main-loop answer (not a subagent's) longer than `minAnswerChars`, the button appears. The model is not asked yet.
-- Pressing the button: `$.model.fork` with the same context, so the prefix is read from the prompt cache. The fork gets the session's skills and slash commands (`$.command.list`); a suggestion naming a command that does not exist is dropped.
-- With [cache-meter](../cache-meter) installed and a big cache gone cold, the button shows what re-caching the context would cost.
-- `turn.start` hides everything.
-- The band's state lives in `$.state` (`next-steps.view`), so a hot reload keeps it.
+---
 
-Suggestions are output of a model that read untrusted text, so before they are shown they are stripped of escape sequences and invisible and control characters (upstream's `clean`, unchanged).
+## 🇳🇱 Nederlands
 
-## Options
+De uitbreidingsmodule `next-steps` plaatst een knop «Wat nu?» boven het invoerveld. In plaats van na elke beurt automatisch een extra modelaanroep uit te voeren, vraagt zij pas om maximaal drie vervolgstappen wanneer u op de knop drukt. Het gekozen voorstel wordt als concepttekst in het invoerveld gezet.
 
-| Option | Default | What it does |
-| --- | --- | --- |
-| `language` | `auto` | `auto` follows Claude's response language from `/config`; `en` or `uk` set it |
-| `minAnswerChars` | `80` | No button after shorter answers |
-| `suggestSkills` | `true` | Give the suggester the session's skills and slash commands |
-
-## Checks
-
-```
-claude plugin validate .
-claude plugin test .
-```
+- Volledige handleiding in het Nederlands: [`LEESMIJ.nl.md`](LEESMIJ.nl.md)
+- Verwante uitbreidingsmodules: [`handoff-relay`](../handoff-relay/LEESMIJ.nl.md), [`cache-meter`](../cache-meter/LEESMIJ.nl.md), verzamelpakket [`primaries`](../primaries/LEESMIJ.nl.md)
+- Algemeen overzicht van de opslagplaats: [hoofdbestand `LEESMIJ.nl.md`](../../LEESMIJ.nl.md)

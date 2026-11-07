@@ -543,74 +543,74 @@ test('ttl: /cache ttl lasts for the session only and an old saved ttl is ignored
   await step($)
   expect(await cache($)).toContain('кеш живе 60 хв (підписка)')
   expect(w.store.settings).toEqual({ bigTokens: 300000, guard: true, alerts: true, keepWarmHours: 4 })
-  expect(await cache($, 'ttl 5')).toContain('кеш живе 5 хв (задано вручну на цю сесію)')
-  expect(w.store.settings).not.toHaveProperty('ttlMin')
-  expect(await cache($, 'ttl auto')).toContain('кеш живе 60 хв (підписка)')
-})
+    expect(await cache($, 'ttl 5')).toContain('кеш живе 5 хв (задано вручну на цей сеанс)')
+    expect(w.store.settings).not.toHaveProperty('ttlMin')
+    expect(await cache($, 'ttl auto')).toContain('кеш живе 60 хв (підписка)')
+  })
 
-test('ttl: /cache names where the lifetime came from', async ($, on) => {
-  const w = world($, on, { limits: API })
-  await start($)
-  await step($)
-  expect(await cache($)).toContain('(API)')
-  // A cache hit after more than 5 idle minutes proves the 1-hour TTL
-  await w.clk.advance(10 * MIN)
-  await step($)
-  expect(await cache($)).toContain('кеш живе 60 хв (виміряно)')
-})
+  test('ttl: /cache names where the lifetime came from', async ($, on) => {
+    const w = world($, on, { limits: API })
+    await start($)
+    await step($)
+    expect(await cache($)).toContain('(API)')
+    // A cache hit after more than 5 idle minutes proves the 1-hour TTL
+    await w.clk.advance(10 * MIN)
+    await step($)
+    expect(await cache($)).toContain('кеш живе 60 хв (виміряно)')
+  })
 
-// Amounts: tokens on a subscription or for a model without prices; dollars on the API
-for (const surface of SURFACES) {
-  test(`units: on a subscription the band, footer and toasts show tokens, not dollars (${surface})`, async ($, on) => {
+  // Amounts: tokens on a subscription or for a model without prices; dollars on the API
+  for (const surface of SURFACES) {
+    test(`units: on a subscription the band, footer and toasts show tokens, not dollars (${surface})`, async ($, on) => {
+      const w = world($, on)
+      await start($)
+      await step($)
+      const ui = await $.ui.mount({ plugin: 'cache-meter', surface, component: 'AbovePrompt', props })
+      const band = (await ui.find({ key: 'cache-meter' }))?.text ?? ''
+      expect(band).toContain('Перекешування коштуватиме ≈ 200k│')
+      expect(band).not.toContain('$')
+      // The cooling toast
+      await w.clk.advance(56 * MIN)
+      const cooling = w.toasts.find((t) => t.startsWith('Кеш на 200k токенів охолоне'))
+      expect(cooling).toContain('Перекешування коштуватиме ≈ 200k. Набери')
+      // The footer once the big cache is cold
+      await w.clk.advance(5 * MIN)
+      const footer = await $.ui.mount({ plugin: 'cache-meter', surface, component: 'SessionMode', props: { modes: [] } as never })
+      expect(await footer.find({ text: /^кеш охолов, перекешування коштуватиме ≈ 200k$/ })).toBeDefined()
+      expect(w.toasts.join('\n')).not.toContain('$')
+    })
+  }
+
+  test('units: on the API the band shows dollars', async ($, on) => {
+    world($, on, { limits: API })
+    await start($)
+    await step($)
+    const ui = await $.ui.mount({ plugin: 'cache-meter', surface: 'terminal', component: 'AbovePrompt', props })
+    // The API's 5-minute cache writes at 1.25x input: 200k tokens of Opus 5.5 ≈ $1.00
+    expect((await ui.find({ key: 'cache-meter' }))?.text).toContain('Перекешування коштуватиме ≈ $1.00')
+  })
+
+  test('units: an unpriced model shows tokens and no dollars, even in /cache', { plugins: [peek] }, async ($, on) => {
+    world($, on, { limits: API, model: 'claude-opus-6' })
+    await start($)
+    await step($)
+    const ui = await $.ui.mount({ plugin: 'cache-meter', surface: 'terminal', component: 'AbovePrompt', props })
+    const band = (await ui.find({ key: 'cache-meter' }))?.text ?? ''
+    expect(band).toContain('Перекешування коштуватиме ≈ 200k│')
+    const text = await cache($)
+    expect(text).toContain('модель opus-6, ціни невідомі')
+    expect(text).not.toContain('$')
+    expect((await state($)).unit).toBe('tokens')
+  })
+
+  test('units: /cache on a subscription labels dollars as the API equivalent', async ($, on) => {
     const w = world($, on)
     await start($)
     await step($)
-    const ui = await $.ui.mount({ plugin: 'cache-meter', surface, component: 'AbovePrompt', props })
-    const band = (await ui.find({ key: 'cache-meter' }))?.text ?? ''
-    expect(band).toContain('Перекешування коштуватиме ≈ 200k│')
-    expect(band).not.toContain('$')
-    // The cooling toast
-    await w.clk.advance(56 * MIN)
-    const cooling = w.toasts.find((t) => t.startsWith('Кеш на 200k токенів охолоне'))
-    expect(cooling).toContain('Перекешування коштуватиме ≈ 200k. Набери')
-    // The footer once the big cache is cold
-    await w.clk.advance(5 * MIN)
-    const footer = await $.ui.mount({ plugin: 'cache-meter', surface, component: 'SessionMode', props: { modes: [] } as never })
-    expect(await footer.find({ text: /^кеш охолов, перекешування коштуватиме ≈ 200k$/ })).toBeDefined()
-    expect(w.toasts.join('\n')).not.toContain('$')
-  })
-}
-
-test('units: on the API the band shows dollars', async ($, on) => {
-  world($, on, { limits: API })
-  await start($)
-  await step($)
-  const ui = await $.ui.mount({ plugin: 'cache-meter', surface: 'terminal', component: 'AbovePrompt', props })
-  // The API's 5-minute cache writes at 1.25x input: 200k tokens of Opus 5.5 ≈ $1.00
-  expect((await ui.find({ key: 'cache-meter' }))?.text).toContain('Перекешування коштуватиме ≈ $1.00')
-})
-
-test('units: an unpriced model shows tokens and no dollars, even in /cache', { plugins: [peek] }, async ($, on) => {
-  world($, on, { limits: API, model: 'claude-opus-6' })
-  await start($)
-  await step($)
-  const ui = await $.ui.mount({ plugin: 'cache-meter', surface: 'terminal', component: 'AbovePrompt', props })
-  const band = (await ui.find({ key: 'cache-meter' }))?.text ?? ''
-  expect(band).toContain('Перекешування коштуватиме ≈ 200k│')
-  const text = await cache($)
-  expect(text).toContain('модель opus-6, ціни невідомі')
-  expect(text).not.toContain('$')
-  expect((await state($)).unit).toBe('tokens')
-})
-
-test('units: /cache on a subscription labels dollars as the API equivalent', async ($, on) => {
-  const w = world($, on)
-  await start($)
-  await step($)
-  await w.clk.advance(61 * MIN)
-  const text = await cache($)
-  expect(text).toMatch(/перекешує його: ≈ 200k \(API-еквівалент \$1\.60\)/)
-  expect(text).toContain('Вартість сесії поки: API-еквівалент $3.20')
+    await w.clk.advance(61 * MIN)
+    const text = await cache($)
+    expect(text).toMatch(/перекешує його: ≈ 200k \(API-еквівалент \$1\.60\)/)
+    expect(text).toContain('Вартість сеансу поки: API-еквівалент $3.20')
   expect(text.split('\n').filter((l) => l.includes('$') && !l.includes('API-еквівалент'))).toEqual([])
 })
 

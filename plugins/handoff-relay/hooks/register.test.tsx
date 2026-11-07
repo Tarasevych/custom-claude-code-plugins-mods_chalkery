@@ -99,7 +99,7 @@ const props = {
 }
 
 const SPAWN = 'mcp__ccd_session__spawn_task' as const
-const TITLE = 'Естафета хендофів H3'
+const TITLE = 'Естафета передач контексту H3'
 
 const turnEnd = { answer: '', durationMs: 1, isAborted: false, turnId: 't', reason: 'answer' as const }
 
@@ -307,7 +307,7 @@ for (const surface of SURFACES) {
       const ui = await $.ui.mount({ plugin: 'handoff-relay', surface, component: 'AbovePrompt', props })
 
       expect((await ui.find({ key: 'handoff' }))?.props.variant).toBe('primary')
-      expect(await ui.find({ text: /^ Кеш охолов: хендоф коштуватиме як звичайне повідомлення$/ })).toBeDefined()
+      expect(await ui.find({ text: /^ Кеш охолов: передача контексту коштуватиме як звичайне повідомлення$/ })).toBeDefined()
       expect(await ui.find({ text: /\$/ })).toBeUndefined()
       expect(await ui.find({ text: /дешевше/ })).toBeUndefined()
     })
@@ -382,7 +382,7 @@ for (const surface of SURFACES) {
       expect(await ui.find({ key: 'handoff' })).toBeUndefined()
       const line = await ui.find({ key: 'handed-off' })
       expect(line?.text).toContain('Handoff створено: Chalkery repository review — H4.')
-      expect(line?.text).toContain('Продовжуй у новій сесії')
+      expect(line?.text).toContain('Продовжуй у новому сеансі')
       expect(line?.text).not.toContain('Start locally')
     })
   })

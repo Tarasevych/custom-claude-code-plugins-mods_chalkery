@@ -1,145 +1,57 @@
 # chalkery
 
-[![CI](https://github.com/drdickgraysonjr/chalkery/actions/workflows/ci.yml/badge.svg)](https://github.com/drdickgraysonjr/chalkery/actions/workflows/ci.yml)
+[![Безперервна перевірка / Doorlopende controle](https://github.com/drdickgraysonjr/chalkery/actions/workflows/ci.yml/badge.svg)](https://github.com/drdickgraysonjr/chalkery/actions/workflows/ci.yml)
 
-English | [Українська](README.uk.md)
+**Двомовний огляд / Tweetalig overzicht** | [Українська (`README.uk.md`)](README.uk.md) | [Українська (`ОПИС.uk.md`)](ОПИС.uk.md) | [Nederlands (`LEESMIJ.nl.md`)](LEESMIJ.nl.md)
 
-A chalkery is where the chalk lives: a home for Claude Code mods that draw above the prompt.
+---
 
-Three Claude Code mods that draw a band above the prompt, in the terminal and in the desktop app's Code tab.
+## 🇺🇦 Українська
 
-![The band in the desktop app's Code tab: Handoff with the context size, the cache status with Keep warm, and What next?](docs/band-desktop-en.png)
+Назва `chalkery` означає місце, де зберігають крейду: оселя для модифікацій середовища `Claude Code`, які виводять інформаційну смугу безпосередньо над полем введення запиту.
 
-![The same band in the terminal](docs/band-terminal-en.png)
+Три модифікації для `Claude Code` формують єдину інформаційну смугу над полем введення — як у терміналі, так і у вкладці коду настільного застосунку.
 
-*The screenshots were taken with the `threshold` option lowered, so Handoff lights up below 180k.*
+![Інформаційна смуга у вкладці коду настільного застосунку](docs/band-desktop-uk.png)
 
-| Mod | What it does |
-| --- | --- |
-| [`handoff-relay`](plugins/handoff-relay) | A Handoff button that runs `/handoff`. It lights up from 180k tokens of context (the `threshold` option). Once the handoff document is written, the button gives way to "Handoff created". The mod brings its own `handoff` skill, so the button works out of the box. |
-| [`cache-meter`](plugins/cache-meter) | Shows how long the prompt cache stays warm and what a re-cache would cost. Keep warm stops it from going cold. Before you send into a big cold cache, it asks first. |
-| [`next-steps`](plugins/next-steps) | A What next? button that suggests up to three next prompts. The one you pick becomes a draft in the input box; you press Enter. |
+![Та сама інформаційна смуга в терміналі](docs/band-terminal-uk.png)
 
-Install them one by one or all at once. In any combination they form one band, always in the same order: Handoff, cache, What next?
+| Модифікація | Призначення | Документація |
+| --- | --- | --- |
+| [`handoff-relay`](plugins/handoff-relay/README.md) | Кнопка передачі контексту запускає команду `/handoff` і підсвічується від 180 тисяч облікових одиниць контексту. Містить вбудовану навичку [`handoff`](plugins/handoff-relay/skills/handoff/SKILL.md). | [УКР](plugins/handoff-relay/README.uk.md) · [НЛД](plugins/handoff-relay/LEESMIJ.nl.md) |
+| [`cache-meter`](plugins/cache-meter/README.md) | Показує час збереження проміжної пам'яті запиту, вартість повторного запису та кнопку «Тримати теплим». Попереджає перед надсиланням у велику охололу проміжну пам'ять. | [УКР](plugins/cache-meter/README.uk.md) · [НЛД](plugins/cache-meter/LEESMIJ.nl.md) |
+| [`next-steps`](plugins/next-steps/README.md) | Кнопка «Що далі?» на вимогу пропонує до трьох наступних запитів і вставляє обраний варіант як чернетку в поле введення. | [УКР](plugins/next-steps/README.uk.md) · [НЛД](plugins/next-steps/LEESMIJ.nl.md) |
+| [`primaries`](plugins/primaries/README.md) | Зведений набір, який встановлює всі три модифікації однією командою, немов три основні кольори. | [УКР](plugins/primaries/README.uk.md) · [НЛД](plugins/primaries/LEESMIJ.nl.md) |
 
-## Requirements
-
-Claude Code 2.1.289 or newer. The mods are built on function hooks, a recent part of Claude Code, and are tested on 2.1.289. Older versions may refuse to load them: 2.1.96, for example, rejects their manifests.
-
-Check your version with `claude --version` and update with `claude update`. The desktop app updates itself.
-
-## Install
-
-Add the marketplace first:
+### Швидке встановлення
 
 ```bash
 claude plugin marketplace add drdickgraysonjr/chalkery
-```
-
-All three mods in one command. The pack is called primaries: three mods, like three primary colours.
-
-```bash
 claude plugin install primaries@chalkery
 ```
 
-Or just the one you need:
+Повний посібник із вимогами, налаштуванням мови, описом навички передачі контексту та відомостями для розробників читайте в [повній українській документації (`README.uk.md`)](README.uk.md) (також доступній як [`ОПИС.uk.md`](ОПИС.uk.md)). Правила супроводу сховища викладено у [`CLAUDE.md`](CLAUDE.md).
 
-```bash
-claude plugin install cache-meter@chalkery
-```
+---
 
-In the desktop app the same is under Plugins → Add plugin: the Marketplaces tab, then Add marketplace. The mods start working from the next session.
+## 🇳🇱 Nederlands
 
-When a new version is out, refresh the catalog, then each installed mod:
+De naam `chalkery` verwijst naar de plek waar het krijt wordt bewaard: een onderkomen voor uitbreidingsmodules van `Claude Code` die een informatiebalk direct boven het invoerveld tekenen.
 
-```bash
-claude plugin marketplace update chalkery
-```
+Drie uitbreidingsmodules voor `Claude Code` vormen samen één overzichtelijke strook boven het invoerveld, zowel in het tekstvenster als in het codetabblad van de bureaubladtoepassing.
 
-```bash
-claude plugin update cache-meter@chalkery
-```
-
-To remove the pack: `claude plugin uninstall primaries@chalkery`. The three mods it installed stay; `claude plugin prune` removes them too.
-
-## Language
-
-The mods speak English and Ukrainian. Each has a `language` option: `auto` (the default), `en` or `uk`. With `auto`, the mods follow Claude's response language from `/config`, so one setting covers all three; a language the mods do not have, or none, gives English. To set it explicitly, change the option in `/config`, or pass it at install time:
-
-```bash
-claude plugin install cache-meter@chalkery --config language=uk
-```
-
-## The handoff skill
-
-`handoff-relay` ships a `handoff` skill. It writes a handoff document for the next session into `.claude/handoffs/` under the project root; if the project's CLAUDE.md names another folder, it uses that. Handoffs form chains: the session that picks one up is titled `<name> H<N>`, and each phase gets its own file. In the desktop app the skill also creates a card that starts the next session; in the terminal it prints the start prompt to paste. If you already have your own `/handoff`, the button runs yours.
-
-## next-steps options
-
-After install the CLI says that some options are not set. All of them have defaults, so setting them is optional.
-
-| Option | Default | What it does |
+| Uitbreidingsmodule | Werking | Documentatie |
 | --- | --- | --- |
-| `language` | `auto` | `auto`, `en` or `uk`, as above |
-| `minAnswerChars` | `80` | No button after shorter answers |
-| `suggestSkills` | `true` | A suggestion may be one of the session's skills or slash commands |
+| [`handoff-relay`](plugins/handoff-relay/README.md) | Een knop voor contextoverdracht die `/handoff` uitvoert en oplicht vanaf 180 duizend rekeneenheden aan context. Bevat de ingebouwde vaardigheid [`handoff`](plugins/handoff-relay/skills/handoff/SKILL.md). | [NL](plugins/handoff-relay/LEESMIJ.nl.md) · [UK](plugins/handoff-relay/README.uk.md) |
+| [`cache-meter`](plugins/cache-meter/README.md) | Toont hoe lang het tussengeheugen warm blijft, wat opnieuw vullen kost en biedt een knop om het tussengeheugen warm te houden. Vraagt bevestiging vóór verzending naar een afgekoeld groot tussengeheugen. | [NL](plugins/cache-meter/LEESMIJ.nl.md) · [UK](plugins/cache-meter/README.uk.md) |
+| [`next-steps`](plugins/next-steps/README.md) | Een knop «Wat nu?» die op verzoek tot drie volgende opdrachten voorstelt en de gekozen optie als concept in het invoerveld plaatst. | [NL](plugins/next-steps/LEESMIJ.nl.md) · [UK](plugins/next-steps/README.uk.md) |
+| [`primaries`](plugins/primaries/README.md) | Het verzamelpakket waarmee alle drie de uitbreidingsmodules in één keer worden geplaatst, zoals drie primaire kleuren. | [NL](plugins/primaries/LEESMIJ.nl.md) · [UK](plugins/primaries/README.uk.md) |
 
-## Troubleshooting
-
-**`Unrecognized key: "options"` or `invalid manifest file`.** Your Claude Code is older than the mods need. Run `claude update`, then install again.
-
-**`primaries` says `Dependency "handoff-relay@chalkery" is not found in any configured marketplace`.** The marketplace is most likely fine: one of the mods failed to install, and the pack reports it this way. Install that mod on its own to see the real error:
+### Snelle plaatsing
 
 ```bash
-claude plugin install handoff-relay@chalkery
+claude plugin marketplace add drdickgraysonjr/chalkery
+claude plugin install primaries@chalkery
 ```
 
-Most often it is the old-version error above.
-
-## For authors
-
-```
-.claude-plugin/marketplace.json   the catalog: the pack and three mods, each at its release tag
-plugins/<mod>/                    each mod stands alone and installs on its own
-plugins/<mod>/hooks/locales/      en.mjs and uk.mjs: every word the mod shows a person
-plugins/handoff-relay/skills/     the handoff skill and its phase script (python3, with tests)
-plugins/primaries/              the pack: only dependencies on the three mods
-shared/band.mjs                   the shared band contract
-shared/i18n.mjs                   picking the language for the language option
-scripts/sync-shared.sh            copies shared/*.mjs into each mod's hooks/
-scripts/pin-releases.sh           points the catalog at each mod's latest release tag
-scripts/check.sh                  runs every check CI runs
-docs/                             the screenshots in the READMEs
-.github/workflows/ci.yml          CI: on every push and pull request, and weekly
-```
-
-**The shared band.** The order in which the engine chains different plugins' `ui.render` hooks is not documented and depends on how they were installed. So a mod does not put its row above or below what `next(e)` returned. It places its row into the shared `prompt-band` column at its own spot: Handoff 10, cache 20, What next? 30. Anything foreign, such as the engine's own row or a mod from elsewhere, goes below them. A mod may be installed without its neighbours, so `band.mjs` and `i18n.mjs` are copied into each one. Edit `shared/`, then run `scripts/sync-shared.sh`; `scripts/sync-shared.sh --check` confirms the copies match.
-
-**Languages.** A mod's code holds no text a person sees: it reads it from `locales/<language>.mjs`. A new language is one more file in each mod, a line in `LOCALES` and a pattern in `shared/i18n.mjs`. Each mod's tests check that every locale has the same keys.
-
-**Checks.** `scripts/check.sh` runs them all: it validates the manifests, runs each mod's tests and the phase script's tests, compares the shared copies, checks versions against release tags, checks that the catalog points at the latest release tags and installs `primaries` from the catalog into a throwaway home folder. CI runs the same on every push and pull request with Claude Code 2.1.289, the oldest version this README promises, and every Monday with the newest one; GitHub emails you when the weekly run fails. To check a single mod:
-
-```bash
-claude plugin validate plugins/cache-meter && claude plugin test plugins/cache-meter
-```
-
-The band tests load the neighbouring mods as separate plugins in both orders. The language tests cover `en`, `auto` without `/config` and `auto` with Ukrainian in `/config`.
-
-**Live development.** To work on your checkout rather than the installed version, add the mod folders to `CLAUDE_CODE_PLUGIN_DIRS` (colon-separated). A plugin loaded from there shadows an installed one of the same name.
-
-**Release.** Raise `version` in `plugins/<mod>/.claude-plugin/plugin.json`. Without it, `claude plugin update` will not see the change, and CI fails when a mod changed since its last release tag but kept its version. After the merge, tag the release from the mod's folder: `claude plugin tag --push` creates `<mod>--v<version>`, the tag that plugin dependencies resolve against. Then run `scripts/pin-releases.sh` and merge the change to `marketplace.json` in a pull request of its own.
-
-**What users get.** Each catalog entry names a release tag and its commit, so `claude plugin install` and `claude plugin update` give the released code, never what is on `main` between releases. A release reaches users only once the catalog points at its tag; until then `scripts/check.sh` fails on the stale entry. Release tags cannot be moved or deleted on GitHub, and `main` takes changes only through a pull request with passing CI.
-
-**Release checklist.** CI does not see the band itself, so check by hand before tagging:
-
-1. `scripts/check.sh` passes.
-2. With the changed mods in `CLAUDE_CODE_PLUGIN_DIRS`, a new terminal session shows the band in order: Handoff, cache, What next?
-3. The same in the desktop app's Code tab.
-4. Handoff runs `/handoff` and, once the document is written, gives way to "Handoff created" in the terminal too; What next? offers suggestions, and `/cache` shows the cache status.
-5. With `language` set to `uk` and then `en`, every label changes language.
-6. Each changed mod has a new `version`.
-
-## Licenses
-
-`handoff-relay`, `primaries` and the shared code: MIT, Yehor Hunia. `cache-meter` is a fork of the cache part of cache-keeper from [nateherkai/claude-code-mods](https://github.com/nateherkai/claude-code-mods), MIT, Nate Herk. `next-steps` is a fork of [anthropics/claude-plugins-community/next-steps](https://github.com/anthropics/claude-plugins-community/tree/main/next-steps), Apache 2.0. Each mod's license is in its folder.
+Raadpleeg de [volledige Nederlandse documentatie (`LEESMIJ.nl.md`)](LEESMIJ.nl.md) voor alle vereisten, taalinstellingen, de werking van de overdrachtsvaardigheid en richtlijnen voor ontwikkelaars. De afspraken voor het onderhouden van deze opslagplaats staan in [`CLAUDE.md`](CLAUDE.md).

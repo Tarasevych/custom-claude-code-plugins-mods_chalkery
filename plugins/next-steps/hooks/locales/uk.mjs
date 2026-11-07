@@ -4,14 +4,13 @@
 
 export default {
   ask: 'Що далі?',
-  // An amount in tokens, as cache-meter shows it on a subscription.
-  // Bare, as 200k: at these sizes tokens come in thousands, and no $ means they are not dollars
+  // Кількість облікових одиниць, як її показує cache-meter на підписці.
   tok: (tokens) => tokens,
   dismiss: 'Сховати',
   loading: 'Що далі: підбираю…',
   nothing: 'Що далі: модель не має що запропонувати',
   failed: (why) => `Що далі: ${why}`,
-  fillFailed: 'Не вдалося вставити промпт у поле вводу',
+  fillFailed: 'Не вдалося вставити запит у поле введення',
   noReply: {
     'nothing-to-fork': 'ще немає розмови, з якої підбирати',
     'api-error': 'API відповів помилкою',

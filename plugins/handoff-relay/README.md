@@ -1,37 +1,25 @@
 # handoff-relay
 
-English | [Українська](README.uk.md)
+**Двомовний огляд / Tweetalig overzicht** | [Українська (`README.uk.md`)](README.uk.md) | [Nederlands (`LEESMIJ.nl.md`)](LEESMIJ.nl.md)
 
-A Handoff button above the prompt. Pressing it runs `/handoff`: the session writes a handoff document for the next session. From 180k tokens of context (the `threshold` option) the button lights up, because by then a fresh session is usually cheaper and sharper than this one.
+---
 
-If you have your own `/handoff`, the button runs yours. Otherwise it runs the `handoff` skill this mod brings.
+## 🇺🇦 Українська
 
-## How it works
+Модифікація `handoff-relay` додає кнопку передачі контексту над полем введення `Claude Code`. Вона запускає команду `/handoff`, підсвічується при досягненні порогу обсягу контексту (типово 180 тисяч облікових одиниць) або перед охолодженням великої проміжної пам'яті та містить вбудовану навичку [`handoff`](skills/handoff/SKILL.md) для ведення ланцюжків послідовних сеансів.
 
-`hooks/register.tsx`, function hooks:
+- Повний посібник українською мовою: [`README.uk.md`](README.uk.md)
+- Опис вбудованої навички передачі контексту: [`skills/handoff/SKILL.md`](skills/handoff/SKILL.md)
+- Сусідні модифікації: [`cache-meter`](../cache-meter/README.uk.md), [`next-steps`](../next-steps/README.uk.md), набір [`primaries`](../primaries/README.uk.md)
+- Загальний опис сховища: [головний `README.uk.md`](../../README.uk.md)
 
-- `session.start` and `session.measure`: track how many tokens the context holds.
-- The button: `$.command.run` with `/handoff`. While the handoff turn runs, the band says it is writing the document.
-- The handoff is done when, during the handoff turn, a `.md` file was written and the turn ended with an answer, not a question, an interrupt or an error. Then the button gives way to "Handoff created: <document name>", so a second press does not overwrite the document just written. This works with any `/handoff`, wherever it saves the document, and in the terminal too.
-- A handoff turn is one started by the button, by `/handoff` typed by hand, or by the model calling a `handoff` skill.
-- When the handoff also creates the next session's card (`spawn_task` in the desktop app), the band says so at once and names the card.
-- With [cache-meter](../cache-meter) installed, the button also lights up when a big cache is about to go cold or already has, with a hint on what that means for the handoff.
+---
 
-## The handoff skill
+## 🇳🇱 Nederlands
 
-`skills/handoff/` writes the document into `.claude/handoffs/` under the project root, or into the folder the project's CLAUDE.md names. Handoffs form chains: the session that picks one up is titled `<name> H<N>`, and each phase gets its own file. `scripts/phase.py` (python3, standard library only) works out the names; without python3 the skill applies the same rules itself. In the desktop app the skill creates a card that starts the next session; in the terminal it prints the start prompt to paste.
+De uitbreidingsmodule `handoff-relay` plaatst een knop voor contextoverdracht boven het invoerveld van `Claude Code`. De knop voert `/handoff` uit, licht op zodra de contextdrempel (standaard 180 duizend rekeneenheden) wordt bereikt of wanneer een groot tussengeheugen dreigt af te koelen, en bevat de ingebouwde vaardigheid [`handoff`](skills/handoff/SKILL.md) voor geketende werksessies.
 
-## Options
-
-| Option | Default | What it does |
-| --- | --- | --- |
-| `language` | `auto` | `auto` follows Claude's response language from `/config`; `en` or `uk` set it |
-| `threshold` | `180000` | Tokens of context from which the button lights up |
-
-## Checks
-
-```
-claude plugin validate .
-claude plugin test .
-python3 -m unittest discover -s skills/handoff/scripts
-```
+- Volledige handleiding in het Nederlands: [`LEESMIJ.nl.md`](LEESMIJ.nl.md)
+- Beschrijving van de ingebouwde overdrachtsvaardigheid: [`skills/handoff/SKILL.md`](skills/handoff/SKILL.md)
+- Verwante uitbreidingsmodules: [`cache-meter`](../cache-meter/LEESMIJ.nl.md), [`next-steps`](../next-steps/LEESMIJ.nl.md), verzamelpakket [`primaries`](../primaries/LEESMIJ.nl.md)
+- Algemeen overzicht van de opslagplaats: [hoofdbestand `LEESMIJ.nl.md`](../../LEESMIJ.nl.md)
