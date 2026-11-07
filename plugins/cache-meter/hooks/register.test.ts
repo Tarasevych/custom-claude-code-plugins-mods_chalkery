@@ -364,7 +364,7 @@ test('/cache big raises the threshold: isBig in the state goes off', { plugins: 
   await start($)
   await step($)
   const r = (await $.command.run({ command: 'cache', args: 'big 300k', ...typed })) as { text: string }
-  expect(r.text).toContain('Питання перед відправкою в охололий кеш: увімкнено, для контексту від 300k токенів')
+  expect(r.text).toContain('Питання перед надсиланням в охололий кеш: увімкнено, для контексту від 300k токенів')
   expect((await state($)).isBig).toBe(false)
 })
 
