@@ -1,6 +1,6 @@
 # cache-meter
 
-[Tweetalig overzicht / Двомовний огляд](README.md) | [Українська](README.uk.md) | **Nederlands**
+[Tweetalig overzicht / Двомовний огляд](README.md) | [Українська](ОГЛЯД.uk.md) | **Nederlands**
 
 Een afsplitsing van het tussengeheugengedeelte van `cache-keeper` uit [nateherkai/claude-code-mods](https://github.com/nateherkai/claude-code-mods) (`33a936f`, door Nate Herk), zonder het overzichtsbord, de overdrachtsfunctie en de opnamestand.
 

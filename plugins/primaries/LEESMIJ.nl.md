@@ -1,6 +1,6 @@
 # primaries
 
-[Tweetalig overzicht / Двомовний огляд](README.md) | [Українська](README.uk.md) | **Nederlands**
+[Tweetalig overzicht / Двомовний огляд](README.md) | [Українська](ОГЛЯД.uk.md) | **Nederlands**
 
 Het verzamelpakket: alle drie de uitbreidingsmodules van `chalkery` in één plaatsing, zoals de drie primaire kleuren. Het pakket bevat zelf geen programmacode, maar uitsluitend afhankelijkheden van [handoff-relay](../handoff-relay/LEESMIJ.nl.md), [cache-meter](../cache-meter/LEESMIJ.nl.md) en [next-steps](../next-steps/LEESMIJ.nl.md).
 

@@ -1,6 +1,6 @@
 # handoff-relay
 
-**Двомовний огляд / Tweetalig overzicht** | [Українська (`README.uk.md`)](README.uk.md) | [Nederlands (`LEESMIJ.nl.md`)](LEESMIJ.nl.md)
+**Двомовний огляд / Tweetalig overzicht** | [Українська (`README.uk.md`)](ОГЛЯД.uk.md) | [Nederlands (`LEESMIJ.nl.md`)](LEESMIJ.nl.md)
 
 ---
 
@@ -8,7 +8,7 @@
 
 Модифікація `handoff-relay` додає кнопку передачі контексту над полем введення `Claude Code`. Вона запускає команду `/handoff`, підсвічується при досягненні порогу обсягу контексту (типово 180 тисяч облікових одиниць) або перед охолодженням великої проміжної пам'яті та містить вбудовану навичку [`handoff`](skills/handoff/SKILL.md) для ведення ланцюжків послідовних сеансів.
 
-- Повний посібник українською мовою: [`README.uk.md`](README.uk.md)
+- Повний посібник українською мовою: [`README.uk.md`](ОГЛЯД.uk.md)
 - Опис вбудованої навички передачі контексту: [`skills/handoff/SKILL.md`](skills/handoff/SKILL.md)
 - Сусідні модифікації: [`cache-meter`](../cache-meter/README.uk.md), [`next-steps`](../next-steps/README.uk.md), набір [`primaries`](../primaries/README.uk.md)
 - Загальний опис сховища: [головний `README.uk.md`](../../README.uk.md)

@@ -1,7 +1,7 @@
 <!-- SPDX-License-Identifier: Apache-2.0. Modified by Yehor Hunia, 2026, from anthropics/claude-plugins-community@87c843d (next-steps). -->
 # next-steps (op verzoek)
 
-[Tweetalig overzicht / Двомовний огляд](README.md) | [Українська](README.uk.md) | **Nederlands**
+[Tweetalig overzicht / Двомовний огляд](README.md) | [Українська](ОГЛЯД.uk.md) | **Nederlands**
 
 Een afsplitsing van [next-steps](https://github.com/anthropics/claude-plugins-community/tree/main/next-steps) uit `anthropics/claude-plugins-community@87c843d` (door Thariq Shihipar). In het oorspronkelijke ontwerp werden na elke beurt automatisch vervolgopdrachten voorgesteld, waardoor elke beurt een extra modelaanroep kostte. Hier toont de strook boven het invoerveld enkel een knop «Wat nu?», en wordt het model pas bevraagd wanneer u op die knop drukt.
 

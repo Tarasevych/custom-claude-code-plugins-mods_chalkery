@@ -1,7 +1,7 @@
 <!-- SPDX-License-Identifier: Apache-2.0. Modified by Yehor Hunia, 2026, from anthropics/claude-plugins-community@87c843d (next-steps). -->
 # next-steps
 
-**Двомовний огляд / Tweetalig overzicht** | [Українська (`README.uk.md`)](README.uk.md) | [Nederlands (`LEESMIJ.nl.md`)](LEESMIJ.nl.md)
+**Двомовний огляд / Tweetalig overzicht** | [Українська (`README.uk.md`)](ОГЛЯД.uk.md) | [Nederlands (`LEESMIJ.nl.md`)](LEESMIJ.nl.md)
 
 ---
 
@@ -9,7 +9,7 @@
 
 Модифікація `next-steps` показує над полем введення кнопку «Що далі?». На відміну від початкового рішення, вона не витрачає додатковий запит до моделі після кожної відповіді, а запитує до трьох наступних кроків лише за натисканням кнопки. Обрана пропозиція вставляється в поле введення як чернетка.
 
-- Повний посібник українською мовою: [`README.uk.md`](README.uk.md)
+- Повний посібник українською мовою: [`README.uk.md`](ОГЛЯД.uk.md)
 - Сусідні модифікації: [`handoff-relay`](../handoff-relay/README.uk.md), [`cache-meter`](../cache-meter/README.uk.md), набір [`primaries`](../primaries/README.uk.md)
 - Загальний опис сховища: [головний `README.uk.md`](../../README.uk.md)
 

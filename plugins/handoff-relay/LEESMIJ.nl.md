@@ -1,6 +1,6 @@
 # handoff-relay
 
-[Tweetalig overzicht / Двомовний огляд](README.md) | [Українська](README.uk.md) | **Nederlands**
+[Tweetalig overzicht / Двомовний огляд](README.md) | [Українська](ОГЛЯД.uk.md) | **Nederlands**
 
 Een knop voor contextoverdracht boven het invoerveld. Wanneer u erop drukt, wordt `/handoff` uitgevoerd: de huidige werksessie schrijft een overdrachtsdocument voor de volgende werksessie. Vanaf 180 duizend rekeneenheden aan context (de instelling `threshold`) licht de knop op, omdat een verse werksessie vanaf dat punt doorgaans voordeliger en scherper werkt dan de huidige.
 

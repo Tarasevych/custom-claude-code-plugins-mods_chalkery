@@ -1,6 +1,6 @@
 # primaries
 
-**Двомовний огляд / Tweetalig overzicht** | [Українська (`README.uk.md`)](README.uk.md) | [Nederlands (`LEESMIJ.nl.md`)](LEESMIJ.nl.md)
+**Двомовний огляд / Tweetalig overzicht** | [Українська (`README.uk.md`)](ОГЛЯД.uk.md) | [Nederlands (`LEESMIJ.nl.md`)](LEESMIJ.nl.md)
 
 ---
 
@@ -8,7 +8,7 @@
 
 Зведений набір `primaries` встановлює всі три модифікації `chalkery` однією командою ([`handoff-relay`](../handoff-relay/README.uk.md), [`cache-meter`](../cache-meter/README.uk.md) та [`next-steps`](../next-steps/README.uk.md)).
 
-- Повний опис українською мовою: [`README.uk.md`](README.uk.md)
+- Повний опис українською мовою: [`README.uk.md`](ОГЛЯД.uk.md)
 - Загальний опис сховища: [головний `README.uk.md`](../../README.uk.md)
 
 ---

@@ -2,7 +2,7 @@
 
 [![Doorlopende controle](https://github.com/drdickgraysonjr/chalkery/actions/workflows/ci.yml/badge.svg)](https://github.com/drdickgraysonjr/chalkery/actions/workflows/ci.yml)
 
-[Tweetalig overzicht / Двомовний огляд](README.md) | [Українська](README.uk.md) | **Nederlands**
+[Tweetalig overzicht / Двомовний огляд](README.md) | [Українська](ОПИС.uk.md) | **Nederlands**
 
 De naam `chalkery` verwijst naar de plek waar het krijt wordt bewaard: een onderkomen voor uitbreidingsmodules van `Claude Code` die een informatiebalk direct boven het invoerveld tekenen.
 
